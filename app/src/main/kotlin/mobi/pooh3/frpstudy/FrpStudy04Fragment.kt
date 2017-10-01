@@ -31,7 +31,7 @@ class FrpStudy04Fragment : Fragment() {
 
         input.subscribe { s -> inputProcessor.onNext(s) }
 
-        translate.subscribe{ inputProcessor.subscribe { s -> output.accept(latin(s)) }}
+        translate.subscribe{ inputProcessor.subscribe { s -> output.accept(latin(s)) }.dispose() }
     }
 
 
