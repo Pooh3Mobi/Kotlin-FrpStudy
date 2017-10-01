@@ -2,17 +2,24 @@ package mobi.pooh3.frpstudy
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.SeekBar
+import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import io.reactivex.CompletableObserver
-import io.reactivex.Observable
-import io.reactivex.Single
+import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subscribers.DisposableSubscriber
+import org.reactivestreams.Publisher
+import org.reactivestreams.Subscriber
+import org.reactivestreams.Subscription
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
@@ -29,24 +36,23 @@ class FrpStudy02TransactionalFragment : Fragment() {
         val onegaiButton = v.findViewById<Button>(R.id.onegai_shimasu)
         val thxButton = v.findViewById<Button>(R.id.thx)
 
-        val onegai = RxView.clicks(onegaiButton).map { "Onegai shimasu!" }
-        val thx = RxView.clicks(thxButton).map { "Thank you!" }
         val edit = RxTextView.text(v.findViewById(R.id.output))
-
-        val onegaiExc = onegai.doOnNext { thxButton.isEnabled = false }.doOnComplete{ thxButton.isEnabled = true }
-        val thxExc = thx.doOnNext { onegaiButton.isEnabled = false }.doOnComplete{ onegaiButton.isEnabled = true }
-
-        val canned = onegaiExc.mergeWith(thxExc)
+        val onegai = RxView.clicks(onegaiButton).map { edit.accept(""); "Onegai shimasu!" }
+        val thx = RxView.clicks(thxButton).map { edit.accept(""); "Thank you!" }
 
 
-        canned.observeOn(Schedulers.io())
-                .flatMap{ s -> heavy(s) }
+        val canned = Observable.merge(onegai, thx).toFlowable(BackpressureStrategy.DROP)
+
+        val processor = PublishProcessor.create<String>()
+
+
+        canned.observeOn(Schedulers.computation(), true, 1)
+                .flatMap{ s -> heavy(processor, s) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{ s ->
+                .subscribe{s->
                     edit.accept(s)
+                    Log.d("test", "onNext" + s)
                 }
-
-
 
         // not action o2
         // /o1........x
@@ -54,9 +60,11 @@ class FrpStudy02TransactionalFragment : Fragment() {
 
     }
 
-    private fun heavy(s: String): Observable<String> {
+    private fun heavy(processor: PublishProcessor<String>, s: String): Flowable<String> {
+        Log.d("test", "start heavy:" + s)
         TimeUnit.SECONDS.sleep(3)
-        return Observable.just(s)
+        processor.onNext(s)
+        return processor
     }
 
     companion object {
@@ -64,5 +72,4 @@ class FrpStudy02TransactionalFragment : Fragment() {
             return FrpStudy02TransactionalFragment()
         }
     }
-
 }
