@@ -32,9 +32,8 @@ class FrpStudy04Fragment : Fragment() {
         input.subscribe { s -> snapshot.onNext(s) }
 
         translate.subscribe {
-            snapshot.subscribe {
-                s -> Log.d("test", s); output.accept(latin(s))
-            }.dispose()
+            snapshot.subscribe { s -> output.accept(latin(s)) }
+                    .dispose()
         }
     }
 
