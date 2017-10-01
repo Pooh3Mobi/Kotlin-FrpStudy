@@ -11,9 +11,14 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Function
 import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import android.R.attr.button
+import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.Executors
+
 
 class FrpStudy02TransactionalFragment : Fragment() {
 
@@ -29,17 +34,19 @@ class FrpStudy02TransactionalFragment : Fragment() {
         val thxButton = v.findViewById<Button>(R.id.thx)
 
         val edit = RxTextView.text(v.findViewById(R.id.output))
-        val onegai = RxView.clicks(onegaiButton).map { edit.accept(""); "Onegai shimasu!" }
-        val thx = RxView.clicks(thxButton).map { edit.accept(""); "Thank you!" }
+        val onegai = RxView.clicks(onegaiButton)
+                .toFlowable(BackpressureStrategy.LATEST)
+                .map { edit.accept(""); "Onegai shimasu!" }
+        val thx = RxView.clicks(thxButton)
+                .toFlowable(BackpressureStrategy.LATEST)
+                .map { edit.accept(""); "Thank you!" }
 
 
-        val canned = onegai.mergeWith(thx).toFlowable(BackpressureStrategy.DROP)
+        val eventBus = PublishProcessor.create<String>()
+        val canned = eventBus.mergeWith(Flowable.mergeArray(onegai, thx))
 
-        val processor = PublishProcessor.create<String>()
-
-
-        canned.observeOn(Schedulers.computation(), true, 1)
-                .flatMap{ s -> heavy(processor, s) }
+        canned.onBackpressureDrop()
+                .flatMap({ s-> heavy(s) }, 1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe{s->
                     edit.accept(s)
@@ -52,10 +59,14 @@ class FrpStudy02TransactionalFragment : Fragment() {
 
     }
 
-    private fun heavy(processor: PublishProcessor<String>, s: String): Flowable<String> {
-        Log.d("test", "start heavy:" + s)
-        TimeUnit.SECONDS.sleep(3)
-        processor.onNext(s)
+    private fun heavy(s: String): Flowable<String> {
+        val processor = PublishProcessor.create<String>()
+        Executors.newSingleThreadExecutor().execute {
+            Log.d("test", "start heavy:" + s)
+            TimeUnit.SECONDS.sleep(3)
+            processor.onNext(s)
+            processor.onComplete()
+        }
         return processor
     }
 
@@ -64,4 +75,6 @@ class FrpStudy02TransactionalFragment : Fragment() {
             return FrpStudy02TransactionalFragment()
         }
     }
+
+
 }
