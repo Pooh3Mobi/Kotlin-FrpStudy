@@ -36,8 +36,7 @@ class FrpStudy02TransactionalFragment : Fragment() {
                 .toFlowable(BackpressureStrategy.LATEST)
                 .map { edit.accept(""); "Thank you!" }
 
-        val eventBus = PublishProcessor.create<String>()
-        val canned   = eventBus.mergeWith(Flowable.mergeArray(onegai, thx))
+        val canned = Flowable.merge(onegai, thx)
 
         canned.onBackpressureDrop()
                 .flatMap(this::heavy, 1)
