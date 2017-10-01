@@ -83,6 +83,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         } else if (id == R.id.nav_slideshow) {
 
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, FrpStudy02WithHeavyFragment.newInstance(), "03")
+                    .commit()
+
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
