@@ -2,6 +2,7 @@ package mobi.pooh3.frpstudy
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,6 @@ import io.reactivex.processors.BehaviorProcessor
 
 class FrpStudy04Fragment : Fragment() {
 
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_frp_study04, container, false)
     }
@@ -19,26 +19,28 @@ class FrpStudy04Fragment : Fragment() {
     override fun onViewCreated(v: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(v!!, savedInstanceState)
 
-        val input = RxTextView.textChanges(v.findViewById(R.id.input))
+        val input = RxTextView.textChanges(v.findViewById(R.id.input)).map { s -> s.toString() }
         val output = RxTextView.text(v.findViewById(R.id.output))
         val translate = RxView.clicks(v.findViewById(R.id.translate))
-        val latin: (CharSequence) -> String = {
-            s -> s.toString().trim().replace(Regex(""" |$"""), "us ").trim()
+        val latin: (String) -> String = {
+            s -> s.trim().replace(Regex(""" |$"""), "us ").trim()
         }
 
         // for snapshot
-        val inputProcessor = BehaviorProcessor.create<CharSequence>()
+        val snapshot = BehaviorProcessor.create<String>()
 
-        input.subscribe { s -> inputProcessor.onNext(s) }
+        input.subscribe { s -> snapshot.onNext(s) }
 
-        translate.subscribe{ inputProcessor.subscribe { s -> output.accept(latin(s)) }.dispose() }
+        translate.subscribe {
+            snapshot.subscribe {
+                s -> Log.d("test", s); output.accept(latin(s))
+            }.dispose()
+        }
     }
-
 
     companion object {
         fun newInstance(): FrpStudy04Fragment {
             return FrpStudy04Fragment()
         }
     }
-
 }
