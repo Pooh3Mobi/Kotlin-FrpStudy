@@ -31,7 +31,7 @@ class FrpStudy02WithHeavyFragment : Fragment() {
         canned.observeOn(Schedulers.io())
                 .flatMap(this::heavy)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { s -> edit.accept(s) }
+                .subscribe(edit::accept)
 
         // not parallel like...
         // /o1........x
