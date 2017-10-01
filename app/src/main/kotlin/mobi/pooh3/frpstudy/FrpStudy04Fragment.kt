@@ -22,8 +22,8 @@ class FrpStudy04Fragment : Fragment() {
         val input = RxTextView.textChanges(v.findViewById(R.id.input))
         val output = RxTextView.text(v.findViewById(R.id.output))
         val translate = RxView.clicks(v.findViewById(R.id.translate))
-        val latin: (String) -> String = {
-            s -> s.trim().replace(Regex(""" |$"""), "us ").trim()
+        val latin: (CharSequence) -> String = {
+            s -> s.toString().trim().replace(Regex(""" |$"""), "us ").trim()
         }
 
         // for snapshot
@@ -31,7 +31,7 @@ class FrpStudy04Fragment : Fragment() {
 
         input.subscribe { s -> inputProcessor.onNext(s) }
 
-        translate.subscribe{ inputProcessor.subscribe { s -> output.accept(latin.invoke(s.toString())) }}
+        translate.subscribe{ inputProcessor.subscribe { s -> output.accept(latin(s)) }}
     }
 
 
