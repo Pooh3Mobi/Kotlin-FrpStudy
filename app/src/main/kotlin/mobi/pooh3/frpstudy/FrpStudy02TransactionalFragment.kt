@@ -7,20 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.SeekBar
-import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subscribers.DisposableSubscriber
-import org.reactivestreams.Publisher
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
-import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 class FrpStudy02TransactionalFragment : Fragment() {
@@ -41,7 +33,7 @@ class FrpStudy02TransactionalFragment : Fragment() {
         val thx = RxView.clicks(thxButton).map { edit.accept(""); "Thank you!" }
 
 
-        val canned = Observable.merge(onegai, thx).toFlowable(BackpressureStrategy.DROP)
+        val canned = onegai.mergeWith(thx).toFlowable(BackpressureStrategy.DROP)
 
         val processor = PublishProcessor.create<String>()
 
