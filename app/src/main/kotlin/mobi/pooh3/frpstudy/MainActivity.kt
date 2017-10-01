@@ -84,10 +84,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else if (id == R.id.nav_slideshow) {
 
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy02WithHeavyFragment.newInstance(), "03")
+                    .replace(R.id.fragment_container, FrpStudy02WithHeavyFragment.newInstance(), "02_heavy")
                     .commit()
 
         } else if (id == R.id.nav_manage) {
+
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, FrpStudy02TransactionalFragment.newInstance(), "03_trans")
+                    .commit()
 
         } else if (id == R.id.nav_share) {
 
