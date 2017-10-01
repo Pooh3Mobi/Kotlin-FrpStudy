@@ -90,10 +90,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else if (id == R.id.nav_manage) {
 
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy02TransactionalFragment.newInstance(), "03_trans")
+                    .replace(R.id.fragment_container, FrpStudy02TransactionalFragment.newInstance(), "02_trans")
                     .commit()
 
         } else if (id == R.id.nav_share) {
+
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, FrpStudy03Fragment.newInstance(), "03_default")
+                    .commit()
 
         } else if (id == R.id.nav_send) {
 
