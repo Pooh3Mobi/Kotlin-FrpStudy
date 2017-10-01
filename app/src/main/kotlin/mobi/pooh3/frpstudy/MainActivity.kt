@@ -100,7 +100,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .commit()
 
         } else if (id == R.id.nav_send) {
-
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, FrpStudy04Fragment.newInstance(), "04_snapshot")
+                    .commit()
         }
 
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
