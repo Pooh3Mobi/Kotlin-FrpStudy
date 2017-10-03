@@ -2,12 +2,14 @@ package mobi.pooh3.frpstudy
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
 import io.reactivex.processors.BehaviorProcessor
 
 class FrpStudy04Fragment : Fragment() {
@@ -19,22 +21,17 @@ class FrpStudy04Fragment : Fragment() {
     override fun onViewCreated(v: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(v!!, savedInstanceState)
 
-        val input = RxTextView.textChanges(v.findViewById(R.id.input)).map { s -> s.toString() }
-        val output = RxTextView.text(v.findViewById(R.id.output))
+        val english = RxTextView.textChanges(v.findViewById(R.id.input))
         val translate = RxView.clicks(v.findViewById(R.id.translate))
-        val latin: (String) -> String = {
-            s -> s.trim().replace(Regex(""" |$"""), "us ").trim()
-        }
 
-        // for snapshot
-        val snapshot = BehaviorProcessor.create<String>()
+        val sLatin = translate.snapShot(english, { txt ->
+            txt.trim().replace(Regex(""" |$"""), "us ").trim()
+        })
 
-        input.subscribe { s -> snapshot.onNext(s) }
+        val latin = sLatin.hold("enter")
 
-        translate.subscribe {
-            snapshot.subscribe { s -> output.accept(latin(s)) }
-                    .dispose()
-        }
+        RxTextView.text(v.findViewById(R.id.output))(latin)
+
     }
 
     companion object {
@@ -43,3 +40,16 @@ class FrpStudy04Fragment : Fragment() {
         }
     }
 }
+
+fun <B, C> Observable<Any>.snapShot(t: Observable<B>, block: (B) -> C): BehaviorProcessor<C> =
+        this.let{ o ->
+            BehaviorProcessor.create<C>()
+                .apply { o.subscribe { t.subscribe { s -> this.onNext(block(s)) }.dispose() } }
+        }
+
+fun <T> BehaviorProcessor<T>.hold(t: T): BehaviorProcessor<T> =
+        this.apply { onNext(t) }
+
+operator fun Consumer<in CharSequence>.invoke(s: BehaviorProcessor<String>): Disposable =
+        s.subscribe { t-> this.accept(t) }
+
