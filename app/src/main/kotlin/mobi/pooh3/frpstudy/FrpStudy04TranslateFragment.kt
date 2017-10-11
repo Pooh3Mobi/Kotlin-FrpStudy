@@ -34,9 +34,10 @@ class FrpStudy04TranslateFragment : Fragment() {
         val english = englishEditText.textChanges()
         val translate = translateButton.clicks()
         val translateEnable = translateButton.enabled()
+        val englishNotEmpty = englishEditText.textNotEmpty();
 
         // enable control
-        englishEditText.textNotEmpty().subscribe(translateEnable)
+        englishNotEmpty.subscribe(translateEnable)
 
         // text change control
         val sLatin = translate.withLatestFrom(english, { _, txt ->
