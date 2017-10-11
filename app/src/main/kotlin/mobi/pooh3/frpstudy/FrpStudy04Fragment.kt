@@ -12,11 +12,8 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.enabled
 import com.jakewharton.rxbinding2.widget.text
 import com.jakewharton.rxbinding2.widget.textChanges
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
 import io.reactivex.rxkotlin.withLatestFrom
-import io.reactivex.subjects.BehaviorSubject
+import mobi.pooh3.frpstudy.extensions.hold
 import mobi.pooh3.frpstudy.extensions.textNotEmpty
 
 
@@ -56,12 +53,6 @@ class FrpStudy04Fragment : Fragment() {
     }
 }
 
-fun <T> Observable<T>.hold(t: T): BehaviorSubject<T> =
-        this.let { o ->
-            BehaviorSubject.createDefault(t)
-                    .apply { o.subscribe(this) }
-        }
 
-operator fun Consumer<in CharSequence>.invoke(s: BehaviorSubject<String>): Disposable =
-        s.subscribe { t-> this.accept(t) }
+
 
