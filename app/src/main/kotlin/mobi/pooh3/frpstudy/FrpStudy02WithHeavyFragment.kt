@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.view.clicks
-import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.text
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
