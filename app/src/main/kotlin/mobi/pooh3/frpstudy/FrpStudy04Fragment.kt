@@ -14,12 +14,12 @@ import io.reactivex.processors.BehaviorProcessor
 
 class FrpStudy04Fragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_frp_study04, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return inflater.inflate(R.layout.fragment_frp_study04, container, false)
     }
 
-    override fun onViewCreated(v: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(v!!, savedInstanceState)
+    override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(v, savedInstanceState)
 
         val english = RxTextView.textChanges(v.findViewById(R.id.input))
         val translate = RxView.clicks(v.findViewById(R.id.translate))
