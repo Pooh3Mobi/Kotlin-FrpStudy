@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.view.enabled
 import com.jakewharton.rxbinding2.widget.text
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.Observable
@@ -16,6 +17,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import io.reactivex.rxkotlin.withLatestFrom
 import io.reactivex.subjects.BehaviorSubject
+import mobi.pooh3.frpstudy.extensions.textNotEmpty
 
 
 class FrpStudy04Fragment : Fragment() {
@@ -34,6 +36,10 @@ class FrpStudy04Fragment : Fragment() {
 
         val english = englishEditText.textChanges()
         val translate = translateButton.clicks()
+        val translateEnable =  translateButton.enabled()
+
+        englishEditText.textNotEmpty().subscribe(translateEnable)
+
 
         val sLatin = translate.withLatestFrom(english, { _, txt ->
                     txt.trim().replace(Regex(""" |$"""), "us ").trim()
