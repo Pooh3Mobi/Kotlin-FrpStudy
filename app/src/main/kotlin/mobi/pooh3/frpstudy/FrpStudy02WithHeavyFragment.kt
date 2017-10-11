@@ -15,12 +15,12 @@ import java.util.concurrent.TimeUnit
 class FrpStudy02WithHeavyFragment : Fragment() {
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_frp_study02, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return inflater.inflate(R.layout.fragment_frp_study02, container, false)
     }
 
-    override fun onViewCreated(v: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(v!!, savedInstanceState)
+    override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(v, savedInstanceState)
 
         val onegai = RxView.clicks(v.findViewById(R.id.onegai_shimasu)).map { "Onegai shimasu!" }
         val thx = RxView.clicks(v.findViewById(R.id.thx)).map { "Thank you!" }

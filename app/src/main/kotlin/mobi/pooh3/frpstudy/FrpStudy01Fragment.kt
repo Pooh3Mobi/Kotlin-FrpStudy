@@ -15,12 +15,12 @@ import com.jakewharton.rxbinding2.widget.textChanges
 class FrpStudy01Fragment : Fragment() {
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_frp_study01, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return inflater.inflate(R.layout.fragment_frp_study01, container, false)
     }
 
-    override fun onViewCreated(v: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(v!!, savedInstanceState)
+    override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(v, savedInstanceState)
 
         val outputText = v.findViewById<TextView>(R.id.output)
         val inputText  = v.findViewById<EditText>(R.id.input)
