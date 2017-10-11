@@ -5,12 +5,18 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxbinding2.widget.RxTextView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.text
+import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
-import io.reactivex.processors.BehaviorProcessor
+import io.reactivex.rxkotlin.withLatestFrom
+import io.reactivex.subjects.BehaviorSubject
+
 
 class FrpStudy04Fragment : Fragment() {
 
@@ -21,16 +27,20 @@ class FrpStudy04Fragment : Fragment() {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
-        val english = RxTextView.textChanges(v.findViewById(R.id.input))
-        val translate = RxView.clicks(v.findViewById(R.id.translate))
+        val englishEditText = v.findViewById<EditText>(R.id.input)
+        val translateButton = v.findViewById<Button>(R.id.translate)
+        val outputText      = v.findViewById<TextView>(R.id.output)
 
-        val sLatin = translate.snapShot(english, { txt ->
-            txt.trim().replace(Regex(""" |$"""), "us ").trim()
-        })
 
-        val latin = sLatin.hold("enter")
+        val english = englishEditText.textChanges()
+        val translate = translateButton.clicks()
 
-        RxTextView.text(v.findViewById(R.id.output))(latin)
+        val sLatin = translate.withLatestFrom(english, { _, txt ->
+                    txt.trim().replace(Regex(""" |$"""), "us ").trim()
+                })
+
+        val latin = sLatin.hold("this is output display")
+        latin.subscribe(outputText.text())
 
     }
 
@@ -41,15 +51,12 @@ class FrpStudy04Fragment : Fragment() {
     }
 }
 
-fun <B, C> Observable<Any>.snapShot(t: Observable<B>, block: (B) -> C): BehaviorProcessor<C> =
-        this.let{ o ->
-            BehaviorProcessor.create<C>()
-                .apply { o.subscribe { t.subscribe { s -> this.onNext(block(s)) }.dispose() } }
+fun <T> Observable<T>.hold(t: T): BehaviorSubject<T> =
+        this.let { o ->
+            BehaviorSubject.createDefault(t)
+                    .apply { o.subscribe(this) }
         }
 
-fun <T> BehaviorProcessor<T>.hold(t: T): BehaviorProcessor<T> =
-        this.apply { onNext(t) }
-
-operator fun Consumer<in CharSequence>.invoke(s: BehaviorProcessor<String>): Disposable =
+operator fun Consumer<in CharSequence>.invoke(s: BehaviorSubject<String>): Disposable =
         s.subscribe { t-> this.accept(t) }
 
