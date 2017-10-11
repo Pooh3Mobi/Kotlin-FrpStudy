@@ -111,6 +111,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .replace(R.id.fragment_container, FrpStudy05SpinnerFragment.newInstance(), "05_loop")
                     .commit()
 
+        } else if (id == R.id.nav_06) {
+
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, FrpStudy06LiftFragment.newInstance(), "06_lift")
+                    .commit()
+
         }
 
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout

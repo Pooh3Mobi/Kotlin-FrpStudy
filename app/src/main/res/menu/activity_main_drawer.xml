@@ -36,6 +36,10 @@
                 android:id="@+id/nav_05"
                 android:icon="@drawable/ic_menu_camera"
                 android:title="Spinner"/>
+            <item
+                android:id="@+id/nav_06"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="lift"/>
         </menu>
     </item>
 
