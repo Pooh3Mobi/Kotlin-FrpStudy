@@ -17,7 +17,7 @@ import mobi.pooh3.frpstudy.extensions.hold
 import mobi.pooh3.frpstudy.extensions.textNotEmpty
 
 
-class FrpStudy04Fragment : Fragment() {
+class FrpStudy04TranslateFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_frp_study04, container, false)
@@ -47,8 +47,8 @@ class FrpStudy04Fragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): FrpStudy04Fragment {
-            return FrpStudy04Fragment()
+        fun newInstance(): FrpStudy04TranslateFragment {
+            return FrpStudy04TranslateFragment()
         }
     }
 }

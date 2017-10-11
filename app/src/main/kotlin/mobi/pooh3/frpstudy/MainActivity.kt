@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         } else if (id == R.id.nav_send) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy04Fragment.newInstance(), "04_snapshot")
+                    .replace(R.id.fragment_container, FrpStudy04TranslateFragment.newInstance(), "04_snapshot")
                     .commit()
         }
 
