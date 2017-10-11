@@ -1,0 +1,68 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context="mobi.pooh3.frpstudy.FrpStudy01Fragment">
+
+
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="29dp"/>
+
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:text="000"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="40sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_plus"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/button_plus"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="0dp"
+        android:drawableTop="@drawable/ic_plus_black_24dp"
+        android:paddingTop="30dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/output"
+        app:layout_constraintEnd_toStartOf="@+id/button_minus"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/output"
+        app:layout_constraintTop_toTopOf="@+id/output"/>
+
+    <Button
+        android:id="@+id/button_minus"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="0dp"
+        android:drawableTop="@drawable/ic_minus_black_24dp"
+        android:paddingTop="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/output"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_plus"
+        app:layout_constraintTop_toTopOf="@+id/output"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="347dp"/>
+
+</android.support.constraint.ConstraintLayout>
