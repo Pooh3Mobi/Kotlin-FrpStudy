@@ -20,12 +20,12 @@ class FrpStudy02Fragment : Fragment() {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
-        val onegaiText = v.findViewById<Button>(R.id.onegai_shimasu)
-        val thxText    = v.findViewById<Button>(R.id.thx)
-        val outputText = v.findViewById<EditText>(R.id.output)
+        val onegaiButton = v.findViewById<Button>(R.id.onegai_shimasu)
+        val thxButton    = v.findViewById<Button>(R.id.thx)
+        val outputText   = v.findViewById<EditText>(R.id.output)
 
-        val sOnegai = onegaiText.clicks().map { "Onegai shimasu!" }
-        val sThx    = thxText.clicks().map { "Thank you!" }
+        val sOnegai = onegaiButton.clicks().map { "Onegai shimasu!" }
+        val sThx    = thxButton.clicks().map { "Thank you!" }
         val sOutput = outputText.text()
 
         val sCanned = sOnegai.mergeWith(sThx)

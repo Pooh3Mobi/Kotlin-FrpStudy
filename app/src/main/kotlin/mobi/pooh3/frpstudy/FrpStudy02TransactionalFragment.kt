@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.jakewharton.rxbinding2.widget.text
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.PublishProcessor
@@ -27,21 +30,20 @@ class FrpStudy02TransactionalFragment : Fragment() {
 
         val onegaiButton = v.findViewById<Button>(R.id.onegai_shimasu)
         val thxButton    = v.findViewById<Button>(R.id.thx)
+        val outputText   = v.findViewById<EditText>(R.id.output)
 
-        val edit   = RxTextView.text(v.findViewById(R.id.output))
-        val onegai = RxView.clicks(onegaiButton)
-                .toFlowable(BackpressureStrategy.LATEST)
-                .map { edit.accept(""); "Onegai shimasu!" }
-        val thx = RxView.clicks(thxButton)
-                .toFlowable(BackpressureStrategy.LATEST)
-                .map { edit.accept(""); "Thank you!" }
+        val sOutput = outputText.text()
+        val sOnegai = onegaiButton.clicks().toFlowable(BackpressureStrategy.LATEST)
+                .map { sOutput.accept(""); "Onegai shimasu!" }
+        val sThx = thxButton.clicks().toFlowable(BackpressureStrategy.LATEST)
+                .map { sOutput.accept(""); "Thank you!" }
 
-        val canned = Flowable.merge(onegai, thx)
+        val sCanned = Flowable.merge(sOnegai, sThx)
 
-        canned.onBackpressureDrop()
+        sCanned.onBackpressureDrop()
                 .flatMap(this::heavy, 1)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(edit::accept)
+                .subscribe(sOutput)
 
         // not action o2
         // /o1........x

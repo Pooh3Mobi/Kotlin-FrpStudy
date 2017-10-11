@@ -5,8 +5,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.jakewharton.rxbinding2.widget.text
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,16 +26,20 @@ class FrpStudy02WithHeavyFragment : Fragment() {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
-        val onegai = RxView.clicks(v.findViewById(R.id.onegai_shimasu)).map { "Onegai shimasu!" }
-        val thx = RxView.clicks(v.findViewById(R.id.thx)).map { "Thank you!" }
-        val edit = RxTextView.text(v.findViewById(R.id.output))
+        val onegaiButton = v.findViewById<Button>(R.id.onegai_shimasu)
+        val thxButton    = v.findViewById<Button>(R.id.thx)
+        val outputText   = v.findViewById<EditText>(R.id.output)
 
-        val canned = onegai.mergeWith(thx)
+        val sOnegai = onegaiButton.clicks().map { "Onegai shimasu!" }
+        val sThx    = thxButton.clicks().map { "Thank you!" }
+        val sOutput = outputText.text()
+
+        val canned = sOnegai.mergeWith(sThx)
 
         canned.observeOn(Schedulers.io())
                 .flatMap(this::heavy)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(edit::accept)
+                .subscribe(sOutput)
 
         // not parallel like...
         // /o1........x
