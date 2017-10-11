@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxbinding2.widget.RxTextView
+import android.widget.Button
+import android.widget.EditText
+import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.text
 
 class FrpStudy02Fragment : Fragment() {
 
@@ -18,20 +20,22 @@ class FrpStudy02Fragment : Fragment() {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
-        val onegai = RxView.clicks(v.findViewById(R.id.onegai_shimasu)).map { "Onegai shimasu!" }
-        val thx = RxView.clicks(v.findViewById(R.id.thx)).map { "Thank you!" }
-        val edit = RxTextView.text(v.findViewById(R.id.output))
+        val onegaiText = v.findViewById<Button>(R.id.onegai_shimasu)
+        val thxText    = v.findViewById<Button>(R.id.thx)
+        val outputText = v.findViewById<EditText>(R.id.output)
 
-        val canned = onegai.mergeWith(thx)
+        val sOnegai = onegaiText.clicks().map { "Onegai shimasu!" }
+        val sThx    = thxText.clicks().map { "Thank you!" }
+        val sOutput = outputText.text()
 
-        canned.subscribe { s -> edit.accept(s) }
+        val sCanned = sOnegai.mergeWith(sThx)
+
+        sCanned.subscribe(sOutput)
     }
-
 
     companion object {
         fun newInstance(): FrpStudy02Fragment {
             return FrpStudy02Fragment()
         }
     }
-
 }
