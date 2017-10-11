@@ -36,18 +36,17 @@ class FrpStudy04Fragment : Fragment() {
 
         val english = englishEditText.textChanges()
         val translate = translateButton.clicks()
-        val translateEnable =  translateButton.enabled()
+        val translateEnable = translateButton.enabled()
 
+        // enable control
         englishEditText.textNotEmpty().subscribe(translateEnable)
 
-
+        // text change control
         val sLatin = translate.withLatestFrom(english, { _, txt ->
                     txt.trim().replace(Regex(""" |$"""), "us ").trim()
                 })
-
         val latin = sLatin.hold("this is output display")
         latin.subscribe(outputText.text())
-
     }
 
     companion object {
