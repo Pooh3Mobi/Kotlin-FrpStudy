@@ -13,14 +13,14 @@
         android:id="@+id/linearLayout">
 
         <EditText
-            android:id="@+id/output"
+            android:id="@+id/edit_output"
             android:layout_margin="2dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/onegai_shimasu"
+            android:id="@+id/button_onegai"
             android:text="Onegai shimasu"
             android:gravity="center_vertical"
             android:layout_margin="2dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/thx"
+            android:id="@+id/button_thankyou"
             android:text="Thank you"
             android:gravity="center_vertical"
             android:layout_margin="2dp"
@@ -38,7 +38,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/output2"
+        android:id="@+id/text_output2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/linearLayout"

@@ -13,7 +13,7 @@
         android:id="@+id/linearLayout">
 
         <EditText
-            android:id="@+id/input"
+            android:id="@+id/edit_input"
             android:hint="enter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/translate"
+            android:id="@+id/btn_translate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/output"
+        android:id="@+id/text_output"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/linearLayout"

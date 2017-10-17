@@ -5,13 +5,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.text
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_frp_study02.*
 import java.util.concurrent.TimeUnit
 
 class FrpStudy02WithHeavyFragment : Fragment() {
@@ -24,13 +23,9 @@ class FrpStudy02WithHeavyFragment : Fragment() {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
-        val onegaiButton = v.findViewById<Button>(R.id.onegai_shimasu)
-        val thxButton    = v.findViewById<Button>(R.id.thx)
-        val outputText   = v.findViewById<EditText>(R.id.output)
-
-        val sOnegai = onegaiButton.clicks().map { "Onegai shimasu!" }
-        val sThx    = thxButton.clicks().map { "Thank you!" }
-        val sOutput = outputText.text()
+        val sOnegai = button_onegai.clicks().map { "Onegai shimasu!" }
+        val sThx    = button_thankyou.clicks().map { "Thank you!" }
+        val sOutput = edit_output.text()
 
         val canned = sOnegai.mergeWith(sThx)
 

@@ -13,6 +13,7 @@ import com.jakewharton.rxbinding2.view.enabled
 import com.jakewharton.rxbinding2.widget.text
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.rxkotlin.withLatestFrom
+import kotlinx.android.synthetic.main.fragment_frp_study04.*
 import mobi.pooh3.frpstudy.extensions.hold
 import mobi.pooh3.frpstudy.extensions.textNotEmpty
 
@@ -26,15 +27,10 @@ class FrpStudy04TranslateFragment : Fragment() {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
-        val englishEditText = v.findViewById<EditText>(R.id.input)
-        val translateButton = v.findViewById<Button>(R.id.translate)
-        val outputText      = v.findViewById<TextView>(R.id.output)
-
-
-        val english = englishEditText.textChanges()
-        val translate = translateButton.clicks()
-        val translateEnable = translateButton.enabled()
-        val englishNotEmpty = englishEditText.textNotEmpty();
+        val english = edit_input.textChanges()
+        val translate = btn_translate.clicks()
+        val translateEnable = btn_translate.enabled()
+        val englishNotEmpty = edit_input.textNotEmpty();
 
         // enable control
         englishNotEmpty.subscribe(translateEnable)
@@ -44,7 +40,7 @@ class FrpStudy04TranslateFragment : Fragment() {
                     txt.trim().replace(Regex(""" |$"""), "us ").trim()
                 })
         val latin = sLatin.hold("this is output display")
-        latin.subscribe(outputText.text())
+        latin.subscribe(text_output.text())
     }
 
     companion object {

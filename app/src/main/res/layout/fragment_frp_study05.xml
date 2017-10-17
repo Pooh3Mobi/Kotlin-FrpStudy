@@ -16,7 +16,7 @@
         app:layout_constraintGuide_begin="29dp"/>
 
     <TextView
-        android:id="@+id/output"
+        android:id="@+id/text_output"
         android:layout_width="76dp"
         android:layout_height="wrap_content"
         android:text="000"
@@ -38,11 +38,11 @@
         android:drawableTop="@drawable/ic_plus_black_24dp"
         android:paddingTop="30dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/output"
+        app:layout_constraintBottom_toBottomOf="@+id/text_output"
         app:layout_constraintEnd_toStartOf="@+id/button_minus"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/output"
-        app:layout_constraintTop_toTopOf="@+id/output"/>
+        app:layout_constraintStart_toEndOf="@+id/text_output"
+        app:layout_constraintTop_toTopOf="@+id/text_output"/>
 
     <Button
         android:id="@+id/button_minus"
@@ -52,11 +52,11 @@
         android:drawablePadding="0dp"
         android:drawableTop="@drawable/ic_minus_black_24dp"
         android:paddingTop="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/output"
+        app:layout_constraintBottom_toBottomOf="@+id/text_output"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_plus"
-        app:layout_constraintTop_toTopOf="@+id/output"/>
+        app:layout_constraintTop_toTopOf="@+id/text_output"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"

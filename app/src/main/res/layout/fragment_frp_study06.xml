@@ -14,7 +14,7 @@
         app:layout_constraintGuide_begin="29dp"/>
 
     <TextView
-        android:id="@+id/output"
+        android:id="@+id/text_output"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -31,7 +31,7 @@
         app:layout_constraintVertical_bias="0.146"/>
 
     <EditText
-        android:id="@+id/text_a"
+        android:id="@+id/edit_a"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -41,24 +41,24 @@
         android:inputType="number"
         android:paddingTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/text_b"
+        app:layout_constraintEnd_toStartOf="@+id/edit_b"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/output"
+        app:layout_constraintTop_toBottomOf="@+id/text_output"
         app:layout_constraintVertical_bias="0.201"/>
 
     <EditText
-        android:id="@+id/text_b"
+        android:id="@+id/edit_b"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:drawablePadding="0dp"
         android:inputType="number"
         android:paddingTop="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_a"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_a"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/text_a"
-        app:layout_constraintTop_toTopOf="@+id/text_a"/>
+        app:layout_constraintStart_toEndOf="@+id/edit_a"
+        app:layout_constraintTop_toTopOf="@+id/edit_a"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"

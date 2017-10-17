@@ -6,10 +6,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
 import com.jakewharton.rxbinding2.widget.text
 import com.jakewharton.rxbinding2.widget.textChanges
+import kotlinx.android.synthetic.main.fragment_frp_study01.*
 
 
 class FrpStudy01Fragment : Fragment() {
@@ -22,11 +21,8 @@ class FrpStudy01Fragment : Fragment() {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
-        val outputText = v.findViewById<TextView>(R.id.output)
-        val inputText  = v.findViewById<EditText>(R.id.input)
-
-        val sOutput = outputText.text()
-        val sInput  = inputText.textChanges()
+        val sOutput = text_output.text()
+        val sInput  = edit_input.textChanges()
 
         sInput.subscribe(sOutput)
     }

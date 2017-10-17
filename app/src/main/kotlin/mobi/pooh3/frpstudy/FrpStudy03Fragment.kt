@@ -5,12 +5,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.text
 import io.reactivex.subjects.BehaviorSubject
+import kotlinx.android.synthetic.main.fragment_frp_study03.*
 
 class FrpStudy03Fragment : Fragment() {
 
@@ -22,15 +20,10 @@ class FrpStudy03Fragment : Fragment() {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
-        val onegaiButton = v.findViewById<Button>(R.id.onegai_shimasu)
-        val thxButton    = v.findViewById<Button>(R.id.thx)
-        val outputEdit   = v.findViewById<EditText>(R.id.output)
-        val outputText   = v.findViewById<TextView>(R.id.output2)
-
-        val sOnegai  = onegaiButton.clicks().map { "Onegai shimasu!" }
-        val sThx     = thxButton.clicks().map { "Thank you!" }
-        val sOutputB = outputText.text()
-        val sOutputA = outputEdit.text()
+        val sOnegai  = button_onegai.clicks().map { "Onegai shimasu!" }
+        val sThx     = button_thankyou.clicks().map { "Thank you!" }
+        val sOutputB = edit_output.text()
+        val sOutputA = text_output2.text()
 
         val default = BehaviorSubject.createDefault("default")
 

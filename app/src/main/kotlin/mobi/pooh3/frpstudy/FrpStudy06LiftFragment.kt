@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.jakewharton.rxbinding2.widget.text
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.rxkotlin.Observables
+import kotlinx.android.synthetic.main.fragment_frp_study06.*
 
 class FrpStudy06LiftFragment : Fragment() {
 
@@ -20,18 +21,14 @@ class FrpStudy06LiftFragment : Fragment() {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
-        val textA  = v.findViewById<EditText>(R.id.text_a)
-        val textB  = v.findViewById<EditText>(R.id.text_b)
-        val output = v.findViewById<TextView>(R.id.output)
-
-        val a = textA.textChanges()
+        val a = edit_a.textChanges()
                 .map { s -> if (s.isEmpty()) 0 else Integer.parseInt(s.toString()) }
-        val b = textB.textChanges()
+        val b = edit_b.textChanges()
                 .map { s -> if (s.isEmpty()) 0 else Integer.parseInt(s.toString()) }
 
         val sum = Observables.combineLatest(a, b, {a_, b_  -> a_ + b_})
 
-        sum.map{ i -> Integer.toString(i) }.subscribe(output.text())
+        sum.map{ i -> Integer.toString(i) }.subscribe(text_output.text())
     }
 
     companion object {
