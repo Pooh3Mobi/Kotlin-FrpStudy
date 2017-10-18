@@ -62,41 +62,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        val id = item.itemId
 
-        if (id == R.id.nav_camera) {
-
-            replaceFragment(R.id.fragment_container, FrpStudy01Fragment.newInstance(), "01")
-
-        } else if (id == R.id.nav_gallery) {
-
-            replaceFragment(R.id.fragment_container, FrpStudy02Fragment.newInstance(), "02")
-
-        } else if (id == R.id.nav_slideshow) {
-
-            replaceFragment(R.id.fragment_container, FrpStudy02WithHeavyFragment.newInstance(), "02_heavy")
-
-        } else if (id == R.id.nav_manage) {
-
-            replaceFragment(R.id.fragment_container, FrpStudy02TransactionalFragment.newInstance(), "02_trans")
-
-        } else if (id == R.id.nav_share) {
-
-            replaceFragment(R.id.fragment_container, FrpStudy03Fragment.newInstance(), "03_default")
-
-        } else if (id == R.id.nav_send) {
-
-            replaceFragment(R.id.fragment_container, FrpStudy04TranslateFragment.newInstance(), "04_snapshot")
-
-        } else if (id == R.id.nav_05) {
-
-            replaceFragment(R.id.fragment_container, FrpStudy05SpinnerFragment.newInstance(), "05_loop")
-
-        } else if (id == R.id.nav_06) {
-
-            replaceFragment(R.id.fragment_container, FrpStudy06LiftFragment.newInstance(), "06_lift")
-
+        when(item.itemId) {
+            R.id.nav_camera -> {
+                replaceFragment(R.id.fragment_container, FrpStudy01Fragment.newInstance(), "01") }
+            R.id.nav_gallery -> {
+                replaceFragment(R.id.fragment_container, FrpStudy02Fragment.newInstance(), "02") }
+            R.id.nav_slideshow -> {
+                replaceFragment(R.id.fragment_container, FrpStudy02WithHeavyFragment.newInstance(), "02_heavy") }
+            R.id.nav_manage -> {
+                replaceFragment(R.id.fragment_container, FrpStudy02TransactionalFragment.newInstance(), "02_trans") }
+            R.id.nav_share -> {
+                replaceFragment(R.id.fragment_container, FrpStudy03Fragment.newInstance(), "03_default") }
+            R.id.nav_send -> {
+                replaceFragment(R.id.fragment_container, FrpStudy04TranslateFragment.newInstance(), "04_snapshot") }
+            R.id.nav_05 -> {
+                replaceFragment(R.id.fragment_container, FrpStudy05SpinnerFragment.newInstance(), "05_loop") }
+            R.id.nav_06 -> {
+                replaceFragment(R.id.fragment_container, FrpStudy06LiftFragment.newInstance(), "06_lift") }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
