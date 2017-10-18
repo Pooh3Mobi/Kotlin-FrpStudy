@@ -1,19 +1,16 @@
 package mobi.pooh3.frpstudy
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import mobi.pooh3.frpstudy.extensions.replaceFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,10 +25,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .setAction("Action", null).show()
         }
 
-        val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
+        ActionBarDrawerToggle(
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close).apply {
+            drawer_layout.addDrawerListener(this)
+            this.syncState()
+        }
 
         nav_view.setNavigationItemSelectedListener(this)
     }
@@ -69,56 +67,41 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if (id == R.id.nav_camera) {
 
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy01Fragment.newInstance(), "01")
-                    .commit()
+            replaceFragment(R.id.fragment_container, FrpStudy01Fragment.newInstance(), "01")
 
         } else if (id == R.id.nav_gallery) {
 
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy02Fragment.newInstance(), "02")
-                    .commit()
+            replaceFragment(R.id.fragment_container, FrpStudy02Fragment.newInstance(), "02")
 
         } else if (id == R.id.nav_slideshow) {
 
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy02WithHeavyFragment.newInstance(), "02_heavy")
-                    .commit()
+            replaceFragment(R.id.fragment_container, FrpStudy02WithHeavyFragment.newInstance(), "02_heavy")
 
         } else if (id == R.id.nav_manage) {
 
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy02TransactionalFragment.newInstance(), "02_trans")
-                    .commit()
+            replaceFragment(R.id.fragment_container, FrpStudy02TransactionalFragment.newInstance(), "02_trans")
 
         } else if (id == R.id.nav_share) {
 
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy03Fragment.newInstance(), "03_default")
-                    .commit()
+            replaceFragment(R.id.fragment_container, FrpStudy03Fragment.newInstance(), "03_default")
 
         } else if (id == R.id.nav_send) {
 
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy04TranslateFragment.newInstance(), "04_snapshot")
-                    .commit()
+            replaceFragment(R.id.fragment_container, FrpStudy04TranslateFragment.newInstance(), "04_snapshot")
 
         } else if (id == R.id.nav_05) {
 
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy05SpinnerFragment.newInstance(), "05_loop")
-                    .commit()
+            replaceFragment(R.id.fragment_container, FrpStudy05SpinnerFragment.newInstance(), "05_loop")
 
         } else if (id == R.id.nav_06) {
 
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, FrpStudy06LiftFragment.newInstance(), "06_lift")
-                    .commit()
+            replaceFragment(R.id.fragment_container, FrpStudy06LiftFragment.newInstance(), "06_lift")
 
         }
 
-        val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
-        drawer.closeDrawer(GravityCompat.START)
+        drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 }
+
+
