@@ -5,12 +5,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
 import com.jakewharton.rxbinding2.widget.text
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.rxkotlin.Observables
 import kotlinx.android.synthetic.main.fragment_frp_study06.*
+import mobi.pooh3.frpstudy.extensions.parseInt
+import mobi.pooh3.frpstudy.extensions.string
 
 class FrpStudy06LiftFragment : Fragment() {
 
@@ -22,13 +22,13 @@ class FrpStudy06LiftFragment : Fragment() {
         super.onViewCreated(v, savedInstanceState)
 
         val a = edit_a.textChanges()
-                .map { s -> if (s.isEmpty()) 0 else Integer.parseInt(s.toString()) }
+                .map { s -> s.parseInt() }
         val b = edit_b.textChanges()
-                .map { s -> if (s.isEmpty()) 0 else Integer.parseInt(s.toString()) }
+                .map { s -> s.parseInt() }
 
         val sum = Observables.combineLatest(a, b, {a_, b_  -> a_ + b_})
 
-        sum.map{ i -> Integer.toString(i) }.subscribe(text_output.text())
+        sum.map{ i -> i.string }.subscribe(text_output.text())
     }
 
     companion object {

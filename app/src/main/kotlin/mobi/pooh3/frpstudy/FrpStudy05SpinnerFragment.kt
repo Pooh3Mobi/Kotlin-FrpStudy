@@ -12,6 +12,7 @@ import io.reactivex.subjects.BehaviorSubject
 import kotlinx.android.synthetic.main.fragment_frp_study05.*
 import mobi.pooh3.frpstudy.extensions.hold
 import mobi.pooh3.frpstudy.extensions.loop
+import mobi.pooh3.frpstudy.extensions.string
 
 class FrpStudy05SpinnerFragment : Fragment() {
 
@@ -23,7 +24,7 @@ class FrpStudy05SpinnerFragment : Fragment() {
         super.onViewCreated(v, savedInstanceState)
 
         val value = BehaviorSubject.create<Int>().apply {
-            this.map { i -> i.toString() }.subscribe(text_output.text())
+            this.map { i -> i.string }.subscribe(text_output.text())
         }
         val sPlusDelta  = button_plus.clicks().map { 1 }
         val sMinusDelta = button_minus.clicks().map { -1 }
