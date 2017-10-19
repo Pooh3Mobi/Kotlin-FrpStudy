@@ -10,6 +10,7 @@ import com.jakewharton.rxbinding2.widget.text
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.PublishProcessor
+import io.reactivex.subjects.BehaviorSubject
 import kotlinx.android.synthetic.main.fragment_frp_study02.*
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.Executors
@@ -26,12 +27,20 @@ class FrpStudy02TransactionalFragment : Fragment() {
         super.onViewCreated(v, savedInstanceState)
 
         val sOutput = edit_output.text()
-        val sOnegai = button_onegai.clicks().toFlowable(BackpressureStrategy.LATEST)
-                .map { sOutput.accept(""); "Onegai shimasu!" }
-        val sThx = button_thankyou.clicks().toFlowable(BackpressureStrategy.LATEST)
-                .map { sOutput.accept(""); "Thank you!" }
+        val sOnegai = button_onegai.clicks().share()
+        val sThankyou = button_thankyou.clicks().share()
 
-        val sCanned = Flowable.merge(sOnegai, sThx)
+        val sLoadingValue = BehaviorSubject.createDefault("loading...")
+        // TODO shorten
+        sOnegai.subscribe { sLoadingValue.subscribe(sOutput) }
+        sThankyou.subscribe { sLoadingValue.subscribe(sOutput) }
+
+        val sHeavyOnegai = sOnegai.toFlowable(BackpressureStrategy.LATEST)
+                .map { "Onegai shimasu!" }
+        val sThx = sThankyou.toFlowable(BackpressureStrategy.LATEST)
+                .map { "Thank you!" }
+
+        val sCanned = Flowable.merge(sHeavyOnegai, sThx)
 
         sCanned.onBackpressureDrop()
                 .flatMap(this::heavy, 1)
