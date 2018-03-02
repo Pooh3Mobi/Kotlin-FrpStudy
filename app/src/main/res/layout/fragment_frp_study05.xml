@@ -65,4 +65,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="347dp"/>
 
+    <Button
+        android:id="@+id/btn_dispose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="76dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="@+id/button_minus"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/button_minus"
+        app:layout_constraintTop_toBottomOf="@+id/button_minus"/>
+
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,174 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="mobi.pooh3.frpstudy.FrpStudy01Fragment">
+
+
+    <TextView
+        android:id="@+id/text_dollors"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:background="#AAAAFF"
+        android:gravity="right"
+        android:padding="6dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/blb_dollors"
+        app:layout_constraintEnd_toEndOf="@+id/text_litter"
+        app:layout_constraintStart_toStartOf="@+id/text_litter"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="12.21"/>
+
+    <TextView
+        android:id="@+id/blb_dollors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dollors"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_litter"
+        app:layout_constraintEnd_toEndOf="@+id/text_dollors"
+        app:layout_constraintStart_toStartOf="@+id/text_dollors"
+        app:layout_constraintTop_toBottomOf="@+id/text_dollors"/>
+
+    <TextView
+        android:id="@+id/text_litter"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:background="#AAAAFF"
+        android:gravity="right"
+        android:padding="6dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/blb_litter"
+        app:layout_constraintEnd_toEndOf="@+id/text_fuel3"
+        app:layout_constraintTop_toBottomOf="@+id/blb_dollors"
+        tools:text="5.68"/>
+
+    <TextView
+        android:id="@+id/blb_litter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Litter"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="@+id/text_litter"
+        app:layout_constraintStart_toStartOf="@+id/text_litter"
+        app:layout_constraintTop_toBottomOf="@+id/text_litter"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="246dp"/>
+
+    <EditText
+        android:id="@+id/edit_preset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#AAFFAA"
+        android:ems="6"
+        android:gravity="right"
+        android:inputType="numberDecimal"
+        android:padding="6dp"
+        android:textSize="28sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/text_dollors"
+        app:layout_constraintEnd_toStartOf="@+id/text_dollors"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="10.00"/>
+
+
+    <TextView
+        android:id="@+id/Lbl_preset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preset"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/edit_preset"
+        app:layout_constraintStart_toStartOf="@+id/edit_preset"
+        app:layout_constraintTop_toTopOf="@+id/blb_dollors"/>
+
+
+    <TextView
+        android:id="@+id/text_fuel1"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="#FFAAFF"
+        android:gravity="right"
+        android:padding="6dp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/text_fuel2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        tools:text="12.21"/>
+
+    <TextView
+        android:id="@+id/blb_fuel1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="fuel1"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_fuel1"
+        app:layout_constraintStart_toStartOf="@+id/text_fuel1"
+        app:layout_constraintTop_toBottomOf="@+id/text_fuel1"/>
+
+    <TextView
+        android:id="@+id/text_fuel2"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="#FFAAFF"
+        android:gravity="right"
+        android:padding="6dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_fuel1"
+        app:layout_constraintEnd_toStartOf="@+id/text_fuel3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text_fuel1"
+        app:layout_constraintTop_toTopOf="@+id/text_fuel1"
+        tools:text="12.21"/>
+
+    <TextView
+        android:id="@+id/blb_fuel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="fuel2"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_fuel2"
+        app:layout_constraintStart_toStartOf="@+id/text_fuel2"
+        app:layout_constraintTop_toBottomOf="@+id/text_fuel2"/>
+
+    <TextView
+        android:id="@+id/text_fuel3"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="#FFAAFF"
+        android:gravity="right"
+        android:padding="6dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_fuel2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text_fuel2"
+        app:layout_constraintTop_toTopOf="@+id/text_fuel2"
+        tools:text="12.21"/>
+
+    <TextView
+        android:id="@+id/blb_fuel3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="fuel3"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_fuel3"
+        app:layout_constraintStart_toStartOf="@+id/text_fuel3"
+        app:layout_constraintTop_toBottomOf="@+id/text_fuel3"/>
+
+</android.support.constraint.ConstraintLayout>

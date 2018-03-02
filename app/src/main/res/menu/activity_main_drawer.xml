@@ -40,6 +40,10 @@
                 android:id="@+id/nav_06"
                 android:icon="@drawable/ic_menu_gallery"
                 android:title="lift"/>
+            <item
+                android:id="@+id/nav_07"
+                android:icon="@drawable/ic_launcher_background"
+                android:title="petroleum"/>
         </menu>
     </item>
 
