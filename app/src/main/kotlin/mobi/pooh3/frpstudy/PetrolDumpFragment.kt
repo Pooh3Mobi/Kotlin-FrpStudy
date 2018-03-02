@@ -13,8 +13,8 @@ class PetrolDumpFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_petrol_dump, container, false)
     }
 
-    override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(v, savedInstanceState)
+    override fun onViewCreated(v: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(v!!, savedInstanceState)
     }
 
 

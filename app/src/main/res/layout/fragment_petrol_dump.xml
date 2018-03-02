@@ -171,4 +171,34 @@
         app:layout_constraintStart_toStartOf="@+id/text_fuel3"
         app:layout_constraintTop_toBottomOf="@+id/text_fuel3"/>
 
+    <Button
+        android:id="@+id/btn_nozzle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Nozzle1"
+        app:layout_constraintEnd_toEndOf="@+id/text_fuel1"
+        app:layout_constraintStart_toStartOf="@+id/text_fuel1"
+        app:layout_constraintTop_toBottomOf="@+id/blb_fuel1"/>
+
+    <Button
+        android:id="@+id/btn_nozzle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Nozzle2"
+        app:layout_constraintEnd_toEndOf="@+id/text_fuel2"
+        app:layout_constraintStart_toStartOf="@+id/text_fuel2"
+        app:layout_constraintTop_toBottomOf="@+id/blb_fuel2"/>
+
+    <Button
+        android:id="@+id/btn_nozzle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Nozzle3"
+        app:layout_constraintEnd_toEndOf="@+id/text_fuel3"
+        app:layout_constraintStart_toStartOf="@+id/text_fuel3"
+        app:layout_constraintTop_toBottomOf="@+id/blb_fuel3"/>
+
 </android.support.constraint.ConstraintLayout>
