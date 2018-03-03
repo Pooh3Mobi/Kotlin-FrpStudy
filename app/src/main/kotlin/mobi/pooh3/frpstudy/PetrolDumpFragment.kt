@@ -127,20 +127,22 @@ class LifeCyclePump : Pump {
                 inputs.sNozzle1, inputs.sNozzle2, inputs.sNozzle3)
 
         return Outputs()
-                .copy(delivery = lc.fillActive.map {
-                    when(it) {
-                        Optional.of(Fuel.ONE)   -> Delivery.FAST1
-                        Optional.of(Fuel.TWO)   -> Delivery.FAST2
-                        Optional.of(Fuel.THREE) -> Delivery.FAST3
-                        else -> Delivery.OFF
-                    }})
-                .copy(saleQuantityLCD = lc.fillActive.map {
-                    when(it) {
-                        Optional.of(Fuel.ONE)   -> "1"
-                        Optional.of(Fuel.TWO)   -> "2"
-                        Optional.of(Fuel.THREE) -> "3"
-                        else -> ""
-                    }})
+                .copy(
+                        delivery = lc.fillActive.map {
+                            when(it) {
+                                Optional.of(Fuel.ONE)   -> Delivery.FAST1
+                                Optional.of(Fuel.TWO)   -> Delivery.FAST2
+                                Optional.of(Fuel.THREE) -> Delivery.FAST3
+                                else -> Delivery.OFF
+                            }},
+
+                        saleQuantityLCD = lc.fillActive.map {
+                            when(it) {
+                                Optional.of(Fuel.ONE)   -> "1"
+                                Optional.of(Fuel.TWO)   -> "2"
+                                Optional.of(Fuel.THREE) -> "3"
+                                else -> ""
+                            }})
     }
 }
 
