@@ -1,6 +1,5 @@
 package mobi.pooh3.frpstudy.petrol.domain
 
-import mobi.pooh3.frpstudy.petrol.*
 import java.util.*
 
 
