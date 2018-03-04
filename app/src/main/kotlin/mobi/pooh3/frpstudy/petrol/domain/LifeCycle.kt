@@ -8,7 +8,7 @@ import mobi.pooh3.frpstudy.extensions.loop
 import mobi.pooh3.frpstudy.rx.unOptional
 import java.util.*
 
-class LiveCycle(sNozzle1: Observable<UpDown>, sNozzle2: Observable<UpDown>, sNozzle3: Observable<UpDown>) {
+class LifeCycle(sNozzle1: Observable<UpDown>, sNozzle2: Observable<UpDown>, sNozzle3: Observable<UpDown>) {
     val sStart: Observable<Fuel>
     val sEnd: Observable<End>
     val fillActive: BehaviorSubject<Optional<Fuel>>
@@ -64,6 +64,5 @@ fun whenSetDown(sNozzle: Observable<UpDown>, nozzleFuel: Fuel, fillActive: Behav
                         Optional.of(End.END)
                     else
                         Optional.empty()
-                }
-                )
+                })
                 .unOptional()
