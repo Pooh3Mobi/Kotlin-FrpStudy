@@ -5,9 +5,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.enabled
 import com.jakewharton.rxbinding2.widget.text
@@ -15,7 +12,7 @@ import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.rxkotlin.withLatestFrom
 import kotlinx.android.synthetic.main.fragment_frp_study04.*
 import mobi.pooh3.frpstudy.extensions.hold
-import mobi.pooh3.frpstudy.extensions.textNotEmpty
+import mobi.pooh3.frpstudy.extensions.rx.widget.textNotEmpty
 
 
 class FrpStudy04TranslateFragment : Fragment() {

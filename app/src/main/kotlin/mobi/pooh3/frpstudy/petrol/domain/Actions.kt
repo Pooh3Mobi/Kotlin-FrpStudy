@@ -5,7 +5,7 @@ import io.reactivex.rxkotlin.withLatestFrom
 import io.reactivex.subjects.BehaviorSubject
 import mobi.pooh3.frpstudy.extensions.hold
 import mobi.pooh3.frpstudy.extensions.loop
-import mobi.pooh3.frpstudy.rx.combineLatest
+import mobi.pooh3.frpstudy.extensions.rx.combineLatest
 import java.util.*
 
 class LifeCyclePump : Pump {
@@ -138,6 +138,38 @@ class ClearSale : Pump {
                 inputs.sFuelPluses, inputs.calibration,
                 inputs.price1, inputs.price2, inputs.price3,
                 sStart
+        )
+
+        val np = NotifyPointOfSale(
+                LifeCycle(
+                        inputs.sNozzle1,
+                        inputs.sNozzle2,
+                        inputs.sNozzle3),
+                inputs.sClearSale,
+                fi)
+
+        sStart.loop(np.sStart)
+
+        return Outputs(
+                delivery = np.fuelFlowing.map {
+                    when(it) {
+                        Optional.of(Fuel.ONE)   -> Delivery.FAST1
+                        Optional.of(Fuel.TWO)   -> Delivery.FAST2
+                        Optional.of(Fuel.THREE) -> Delivery.FAST3
+                        else -> Delivery.OFF
+                    }
+                },
+                saleCostLCD = fi.dollersDelivered.map {
+                    q -> Formatters.formatSaleCost(q)
+                },
+                saleQuantityLCD = fi.litersDelivered.map {
+                    q -> Formatters.formatSaleQuantity(q)
+                },
+                priceLCD1 = ShowDollersPump.priceLCD(np.fillActive, fi.price, Fuel.ONE, inputs),
+                priceLCD2 = ShowDollersPump.priceLCD(np.fillActive, fi.price, Fuel.TWO, inputs),
+                priceLCD3 = ShowDollersPump.priceLCD(np.fillActive, fi.price, Fuel.THREE, inputs),
+                sBeep = np.sBeep,
+                sSaleComplete = np.sSaleComplete
         )
     }
 }

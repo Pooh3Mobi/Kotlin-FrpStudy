@@ -3,8 +3,9 @@ package mobi.pooh3.frpstudy.extensions
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
+import io.reactivex.rxkotlin.withLatestFrom
 import io.reactivex.subjects.BehaviorSubject
-import mobi.pooh3.frpstudy.rx.unOptional
+import mobi.pooh3.frpstudy.extensions.rx.unOptional
 import java.util.*
 
 fun <T> Observable<T>.hold(value: T): BehaviorSubject<T> =
@@ -20,3 +21,7 @@ fun <T>Observable<T>.gate(c: Observable<Boolean>) =
             else
                 Optional.empty()
         }).unOptional()
+
+
+fun <R> Observable<*>.snapshot(r: Observable<R>): Observable<R> =
+        this.withLatestFrom(r, { _, r_ -> r_ })

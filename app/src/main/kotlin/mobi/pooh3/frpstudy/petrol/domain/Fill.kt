@@ -4,8 +4,8 @@ import io.reactivex.Observable
 import io.reactivex.rxkotlin.withLatestFrom
 import io.reactivex.subjects.BehaviorSubject
 import mobi.pooh3.frpstudy.extensions.hold
-import mobi.pooh3.frpstudy.rx.combineLatest
-import mobi.pooh3.frpstudy.rx.unOptional
+import mobi.pooh3.frpstudy.extensions.rx.combineLatest
+import mobi.pooh3.frpstudy.extensions.rx.unOptional
 import java.util.*
 
 

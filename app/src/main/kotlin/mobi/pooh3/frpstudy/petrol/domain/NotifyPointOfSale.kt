@@ -4,6 +4,12 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.withLatestFrom
 import io.reactivex.subjects.BehaviorSubject
+import mobi.pooh3.frpstudy.extensions.gate
+import mobi.pooh3.frpstudy.extensions.hold
+import mobi.pooh3.frpstudy.extensions.loop
+import mobi.pooh3.frpstudy.extensions.rx.combineLatest
+import mobi.pooh3.frpstudy.extensions.rx.unOptional
+import mobi.pooh3.frpstudy.extensions.snapshot
 import java.util.*
 
 
@@ -17,9 +23,42 @@ class NotifyPointOfSale(lc: LifeCycle, sClearSale: Observable<Unit>, fi: Fill) {
 
     init {
         val phase: BehaviorSubject<Phase> = BehaviorSubject.create()
-        this.sStart = lc.sStart.withLatestFrom(phase, { f, p -> (f to p)})
-                .filter { (_, p) -> p == Phase.IDLE }
-                .map { (f, _) -> f }
+        // IDLE -> start
+        sStart = lc.sStart.gate(phase.map { p -> p == Phase.IDLE })
+        // FILLING -> end
+        sEnd = lc.sEnd.gate(phase.map { p -> p == Phase.FILLING })
+        phase.loop(
+                Observable.merge(
+                        sStart.map { Phase.FILLING },
+                        sEnd.map { Phase.POS },
+                        sClearSale.map { Phase.IDLE }
+                ).hold(Phase.IDLE)
+        )
+
+        fuelFlowing =
+                Observable.merge(
+                        sStart.map { f -> Optional.of(f) },
+                        sEnd.map   { Optional.empty<Fuel>() }
+                ).hold(Optional.empty())
+
+        fillActive =
+                Observable.merge(
+                        sStart.map { f -> Optional.of(f) },
+                        sClearSale.map { Optional.empty<Fuel>() }
+                ).hold(Optional.empty())
+
+        sBeep = sClearSale
+        sSaleComplete = sEnd.snapshot(
+                fuelFlowing.combineLatest(fi.price, fi.dollersDelivered, fi.litersDelivered,
+                        { oFuel, price_, dollers, liters ->
+                            if (oFuel.isPresent) {
+                                Optional.of(Sale(oFuel.get(), price_, dollers, liters))
+                            } else {
+                                Optional.empty()
+                            }
+                        })
+        ).unOptional()
     }
 }
+
 

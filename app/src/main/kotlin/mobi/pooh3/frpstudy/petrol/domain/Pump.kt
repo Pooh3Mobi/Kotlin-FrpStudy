@@ -34,7 +34,12 @@ interface Pump {
     fun create(inputs: Inputs): Outputs
 }
 
-
+data class Sale(
+        val fuel: Fuel,
+        val price: Double,
+        val cost: Double,
+        val quantity: Double
+)
 
 
 
