@@ -30,8 +30,9 @@ jp.
 http://amzn.to/2kFZhaJ
 
 
-### FRP Library
-Sodium  
+### Library for FRP
+
+Sodium  
 https://github.com/SodiumFRP/sodium/
 
 RxJava  
