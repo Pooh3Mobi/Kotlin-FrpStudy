@@ -173,3 +173,15 @@ class ClearSale : Pump {
         )
     }
 }
+
+class KeypadPump : Pump {
+    override fun create(inputs: Inputs): Outputs {
+        val ke = Keypad(inputs.sKeypad, BehaviorSubject.create())
+        return Outputs(
+                presetLCD = ke.value.map { v ->
+                    Formatters.formatSaleCost(v.toDouble())
+                },
+                sBeep = ke.sBeep
+        )
+    }
+}
