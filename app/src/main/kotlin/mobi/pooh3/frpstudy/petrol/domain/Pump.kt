@@ -2,7 +2,6 @@ package mobi.pooh3.frpstudy.petrol.domain
 
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
-import java.util.*
 
 
 data class Inputs(
