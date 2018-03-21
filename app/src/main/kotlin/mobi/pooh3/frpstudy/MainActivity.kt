@@ -11,7 +11,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import mobi.pooh3.frpstudy.extensions.replaceFragment
-import mobi.pooh3.frpstudy.petrol.PetrolDumpFragment
+import mobi.pooh3.frpstudy.metronome.FrpMetronomeFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -81,8 +81,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 replaceFragment(R.id.fragment_container, FrpStudy05SpinnerFragment.newInstance(), "05_loop") }
             R.id.nav_06 -> {
                 replaceFragment(R.id.fragment_container, FrpStudy06LiftFragment.newInstance(), "06_lift") }
-            R.id.nav_07 -> {
-                replaceFragment(R.id.fragment_container, PetrolDumpFragment.newInstance(), "petro_dump") }
+            R.id.nav_08 -> {
+                replaceFragment(R.id.fragment_container, FrpMetronomeFragment.newInstance(), "petro_dump") }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)

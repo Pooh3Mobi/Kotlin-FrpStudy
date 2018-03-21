@@ -19,7 +19,7 @@ import mobi.pooh3.frpstudy.share.DoOnEachLifecycleObserver
 import java.util.concurrent.TimeUnit
 
 
-class FRPMetronomeFragment : Fragment() {
+class FrpMetronomeFragment : Fragment() {
     private val disposables: CompositeDisposable = CompositeDisposable()
     override fun onCreateView(inf: LayoutInflater?, ctr: ViewGroup?, savedInstanceState: Bundle?): View?
             = inf!!.inflate(R.layout.fragment_frp_metronome, ctr, false)
@@ -64,7 +64,7 @@ class FRPMetronomeFragment : Fragment() {
 
 
     companion object {
-        fun newInstance(): FRPMetronomeFragment = FRPMetronomeFragment()
+        fun newInstance(): FrpMetronomeFragment = FrpMetronomeFragment()
     }
 }
 
