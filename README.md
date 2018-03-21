@@ -44,6 +44,6 @@ https://github.com/JakeWharton/RxBinding
 RxKotlin  
 https://github.com/ReactiveX/RxKotlin
 
-### plugin
-Kotlin Android Extensions  
+### using other
+- plugin : Kotlin Android Extensions  
 https://kotlinlang.org/docs/tutorials/android-plugin.html
