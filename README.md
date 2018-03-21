@@ -21,16 +21,16 @@
     }
  ```
 
-book link.  
+### link of book for study frp
 
 eng.  
-http://amzn.to/2xys2Hx
+http://a.co/8rtUduO
 
 jp.  
 http://amzn.to/2kFZhaJ
 
 
-### Library for FRP
+### Using Library for FRP in this project
 
 Sodium  
 https://github.com/SodiumFRP/sodium/
@@ -44,6 +44,6 @@ https://github.com/JakeWharton/RxBinding
 RxKotlin  
 https://github.com/ReactiveX/RxKotlin
 
-### plugin
-Kotlin Android Extensions  
+### Using others
+- plugin : "Kotlin Android Extensions" for simplify code.  
 https://kotlinlang.org/docs/tutorials/android-plugin.html
