@@ -7,6 +7,7 @@ import mobi.pooh3.frpstudy.extensions.gate
 import mobi.pooh3.frpstudy.extensions.hold
 import mobi.pooh3.frpstudy.extensions.loop
 import mobi.pooh3.frpstudy.extensions.rx.unOptional
+import mobi.pooh3.frpstudy.extensions.toOptional
 import java.util.*
 
 
@@ -27,26 +28,24 @@ class Keypad(sKeypad: Observable<Key>, sClear: Observable<Unit>) {
                 sKeypad.withLatestFrom(value,
                         { key, value_ ->
                             if (key === Key.CLEAR)
-                                return@withLatestFrom Optional.of(0)
+                                return@withLatestFrom 0.toOptional()
                             else {
                                 val x10 = value_ * 10
                                 return@withLatestFrom if (x10 >= 1000)
                                     Optional.empty()
                                 else
-                                    Optional.of(
-                                            when {
-                                                key === Key.ZERO  -> x10
-                                                key === Key.ONE   -> x10 + 1
-                                                key === Key.TWO   -> x10 + 2
-                                                key === Key.THREE -> x10 + 3
-                                                key === Key.FOUR  -> x10 + 4
-                                                key === Key.FIVE  -> x10 + 5
-                                                key === Key.SIX   -> x10 + 6
-                                                key === Key.SEVEN -> x10 + 7
-                                                key === Key.EIGHT -> x10 + 8
-                                                else              -> x10 + 9
-                                            }
-                                    )
+                                    when {
+                                        key === Key.ZERO  -> x10
+                                        key === Key.ONE   -> x10 + 1
+                                        key === Key.TWO   -> x10 + 2
+                                        key === Key.THREE -> x10 + 3
+                                        key === Key.FOUR  -> x10 + 4
+                                        key === Key.FIVE  -> x10 + 5
+                                        key === Key.SIX   -> x10 + 6
+                                        key === Key.SEVEN -> x10 + 7
+                                        key === Key.EIGHT -> x10 + 8
+                                        else              -> x10 + 9
+                                    }.toOptional()
                             }
                         }
                 ).unOptional()

@@ -1,15 +1,10 @@
 package mobi.pooh3.frpstudy.petrol.domain
 
 import io.reactivex.Observable
-import io.reactivex.functions.BiFunction
-import io.reactivex.rxkotlin.withLatestFrom
 import io.reactivex.subjects.BehaviorSubject
-import mobi.pooh3.frpstudy.extensions.gate
-import mobi.pooh3.frpstudy.extensions.hold
-import mobi.pooh3.frpstudy.extensions.loop
+import mobi.pooh3.frpstudy.extensions.*
 import mobi.pooh3.frpstudy.extensions.rx.combineLatest
 import mobi.pooh3.frpstudy.extensions.rx.unOptional
-import mobi.pooh3.frpstudy.extensions.snapshot
 import java.util.*
 
 
@@ -30,20 +25,20 @@ class NotifyPointOfSale(lc: LifeCycle, sClearSale: Observable<Unit>, fi: Fill) {
         phase.loop(
                 Observable.merge(
                         sStart.map { Phase.FILLING },
-                        sEnd.map { Phase.POS },
+                        sEnd.map   { Phase.POS },
                         sClearSale.map { Phase.IDLE }
                 ).hold(Phase.IDLE)
         )
 
         fuelFlowing =
                 Observable.merge(
-                        sStart.map { f -> Optional.of(f) },
+                        sStart.map { f -> f.toOptional() },
                         sEnd.map   { Optional.empty<Fuel>() }
                 ).hold(Optional.empty())
 
         fillActive =
                 Observable.merge(
-                        sStart.map { f -> Optional.of(f) },
+                        sStart.map { f -> f.toOptional() },
                         sClearSale.map { Optional.empty<Fuel>() }
                 ).hold(Optional.empty())
 
@@ -52,7 +47,7 @@ class NotifyPointOfSale(lc: LifeCycle, sClearSale: Observable<Unit>, fi: Fill) {
                 fuelFlowing.combineLatest(fi.price, fi.dollersDelivered, fi.litersDelivered,
                         { oFuel, price_, dollers, liters ->
                             if (oFuel.isPresent) {
-                                Optional.of(Sale(oFuel.get(), price_, dollers, liters))
+                                Sale(oFuel.get(), price_, dollers, liters).toOptional()
                             } else {
                                 Optional.empty()
                             }

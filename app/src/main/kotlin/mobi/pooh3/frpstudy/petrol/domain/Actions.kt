@@ -6,6 +6,7 @@ import io.reactivex.subjects.BehaviorSubject
 import mobi.pooh3.frpstudy.extensions.hold
 import mobi.pooh3.frpstudy.extensions.loop
 import mobi.pooh3.frpstudy.extensions.rx.combineLatest
+import mobi.pooh3.frpstudy.extensions.toOptional
 import java.util.*
 
 class LifeCyclePump : Pump {
@@ -19,16 +20,16 @@ class LifeCyclePump : Pump {
         return Outputs(
                 delivery = lc.fillActive.map {
                     when(it) {
-                        Optional.of(Fuel.ONE)   -> Delivery.FAST1
-                        Optional.of(Fuel.TWO)   -> Delivery.FAST2
-                        Optional.of(Fuel.THREE) -> Delivery.FAST3
+                        Fuel.ONE.toOptional()   -> Delivery.FAST1
+                        Fuel.TWO.toOptional()   -> Delivery.FAST2
+                        Fuel.THREE.toOptional() -> Delivery.FAST3
                         else -> Delivery.OFF
                     }},
                 saleQuantityLCD = lc.fillActive.map {
                     when(it) {
-                        Optional.of(Fuel.ONE)   -> "1"
-                        Optional.of(Fuel.TWO)   -> "2"
-                        Optional.of(Fuel.THREE) -> "3"
+                        Fuel.ONE.toOptional()   -> "1"
+                        Fuel.TWO.toOptional()   -> "2"
+                        Fuel.THREE.toOptional() -> "3"
                         else -> ""
                     }}
                 )
@@ -49,12 +50,12 @@ class AccumulatePulsesPump : Pump {
         )
         return Outputs(
                 delivery = lc.fillActive.map {
-                            when(it) {
-                                Optional.of(Fuel.ONE)   -> Delivery.FAST1
-                                Optional.of(Fuel.TWO)   -> Delivery.FAST2
-                                Optional.of(Fuel.THREE) -> Delivery.FAST3
-                                else -> Delivery.OFF
-                            }},
+                    when(it) {
+                        Fuel.ONE.toOptional()   -> Delivery.FAST1
+                        Fuel.TWO.toOptional()   -> Delivery.FAST2
+                        Fuel.THREE.toOptional() -> Delivery.FAST3
+                        else -> Delivery.OFF
+                    }},
                 saleCostLCD = litersDelivered.map {  q -> Formatters.formatSaleQuantity(q) }
         )
     }
@@ -95,9 +96,9 @@ class ShowDollersPump : Pump {
         return Outputs(
                 delivery = lc.fillActive.map {
                             when(it) {
-                                Optional.of(Fuel.ONE)   -> Delivery.FAST1
-                                Optional.of(Fuel.TWO)   -> Delivery.FAST2
-                                Optional.of(Fuel.THREE) -> Delivery.FAST3
+                                Fuel.ONE.toOptional()   -> Delivery.FAST1
+                                Fuel.TWO.toOptional()   -> Delivery.FAST2
+                                Fuel.THREE.toOptional() -> Delivery.FAST3
                                 else -> Delivery.OFF
                             }
                         },
@@ -153,9 +154,9 @@ class ClearSale : Pump {
         return Outputs(
                 delivery = np.fuelFlowing.map {
                     when(it) {
-                        Optional.of(Fuel.ONE)   -> Delivery.FAST1
-                        Optional.of(Fuel.TWO)   -> Delivery.FAST2
-                        Optional.of(Fuel.THREE) -> Delivery.FAST3
+                        Fuel.ONE.toOptional()   -> Delivery.FAST1
+                        Fuel.TWO.toOptional()   -> Delivery.FAST2
+                        Fuel.THREE.toOptional() -> Delivery.FAST3
                         else -> Delivery.OFF
                     }
                 },

@@ -6,6 +6,7 @@ import io.reactivex.subjects.BehaviorSubject
 import mobi.pooh3.frpstudy.extensions.hold
 import mobi.pooh3.frpstudy.extensions.loop
 import mobi.pooh3.frpstudy.extensions.rx.unOptional
+import mobi.pooh3.frpstudy.extensions.toOptional
 import java.util.*
 
 class LifeCycle(sNozzle1: Observable<UpDown>, sNozzle2: Observable<UpDown>, sNozzle3: Observable<UpDown>) {
@@ -24,14 +25,12 @@ class LifeCycle(sNozzle1: Observable<UpDown>, sNozzle2: Observable<UpDown>, sNoz
         this.fillActive = BehaviorSubject.create()
 
         this.sStart =
-                sLiftNozzle
-                        .withLatestFrom(fillActive, { newFuel, fillActive_ ->
+                sLiftNozzle.withLatestFrom(fillActive, { newFuel, fillActive_ ->
                             if (fillActive_ == null)
-                                Optional.of(newFuel)
+                                newFuel.toOptional()
                             else
                                 Optional.empty()
-                        }
-                        )
+                        })
                         .unOptional()
 
         this.sEnd =
@@ -45,7 +44,7 @@ class LifeCycle(sNozzle1: Observable<UpDown>, sNozzle2: Observable<UpDown>, sNoz
                 Observable
                         .merge(
                                 sEnd.map   { Optional.empty<Fuel>() },
-                                sStart.map { Optional.of(it) }
+                                sStart.map { it.toOptional() }
                         )
                         .hold(Optional.empty())
         )
@@ -60,8 +59,8 @@ fun whenLifted(sNozzle: Observable<UpDown>, nozzleFuel: Fuel): Observable<Fuel> 
 fun whenSetDown(sNozzle: Observable<UpDown>, nozzleFuel: Fuel, fillActive: BehaviorSubject<Optional<Fuel>>): Observable<End> =
         sNozzle
                 .withLatestFrom(fillActive, { u: UpDown, f: Optional<Fuel> ->
-                    if (u == UpDown.DOWN && f == Optional.of(nozzleFuel))
-                        Optional.of(End.END)
+                    if (u == UpDown.DOWN && f == nozzleFuel.toOptional())
+                        End.END.toOptional()
                     else
                         Optional.empty()
                 })
