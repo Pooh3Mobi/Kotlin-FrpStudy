@@ -21,7 +21,7 @@
     }
  ```
 
-book link.  
+### link of book for study frp
 
 eng.  
 http://a.co/8rtUduO
@@ -30,7 +30,7 @@ jp.
 http://amzn.to/2kFZhaJ
 
 
-### Library for FRP
+### Using Library for FRP in this project
 
 Sodium  
 https://github.com/SodiumFRP/sodium/
