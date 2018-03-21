@@ -21,7 +21,7 @@ data class Outputs(
 class Metronome {
     fun create(inputs: Inputs): Outputs {
 
-        val mn = Pulse(
+        val pl = Pulse(
                 inputs.sProgress,
                 inputs.sDebouncedProgress,
                 inputs.defaultDuration,
@@ -32,7 +32,7 @@ class Metronome {
                 inputs.defaultDuration)
 
         return Outputs(
-                duration = mn.duration,
+                duration = pl.duration,
                 bpmText = bpm.bpmText.map { Formatters().formatBpmInfo(it) }
         )
     }
