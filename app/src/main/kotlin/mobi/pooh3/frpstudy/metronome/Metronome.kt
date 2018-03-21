@@ -8,7 +8,12 @@ import mobi.pooh3.frpstudy.extensions.rx.unOptional
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-data class Inputs(val defaultDuration: Long, val sProgress: Observable<Int>, val sDebouncedProgress: Observable<Int>, val sToggle: Observable<Boolean>)
+data class Inputs(
+        val defaultDuration: Long,
+        val sProgress: Observable<Int>,
+        val sDebouncedProgress: Observable<Int>,
+        val sToggle: Observable<Boolean>
+)
 data class Outputs(
         val duration: Observable<Long> = BehaviorSubject.createDefault(0L),
         val bpmText: Observable<String> = BehaviorSubject.createDefault("")
