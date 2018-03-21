@@ -45,5 +45,5 @@ RxKotlin
 https://github.com/ReactiveX/RxKotlin
 
 ### Using others
-- plugin : "Kotlin Android Extensions" for simplify code.
+- plugin : "Kotlin Android Extensions" for simplify code.  
 https://kotlinlang.org/docs/tutorials/android-plugin.html
