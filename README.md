@@ -24,7 +24,7 @@
 book link.  
 
 eng.  
-http://amzn.to/2xys2Hx
+http://a.co/8rtUduO
 
 jp.  
 http://amzn.to/2kFZhaJ
