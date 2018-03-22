@@ -8,6 +8,9 @@ import mobi.pooh3.frpstudy.extensions.rx.unOptional
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+
+interface Metronome { fun create(inputs: Inputs): Outputs }
+
 data class Inputs(
         val defaultDuration: Long,
         val sProgress: Observable<Int>,
@@ -18,8 +21,8 @@ data class Outputs(
         val duration: Observable<Long> = BehaviorSubject.createDefault(0L),
         val bpmText: Observable<String> = BehaviorSubject.createDefault("")
 )
-class Metronome {
-    fun create(inputs: Inputs): Outputs {
+class SimpleMetronome : Metronome {
+    override fun create(inputs: Inputs): Outputs {
 
         val pl = Pulse(
                 inputs.sProgress,

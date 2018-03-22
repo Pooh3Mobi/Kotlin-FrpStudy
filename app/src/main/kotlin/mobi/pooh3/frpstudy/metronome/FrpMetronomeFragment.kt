@@ -30,7 +30,7 @@ class FrpMetronomeFragment : Fragment() {
         val sToggle = toggleButton.checkedChanges().share()
 
         // inputs to outputs
-        val outputs = Metronome().create(Inputs(
+        val outputs = SimpleMetronome().create(Inputs(
                 seekBar.progress.toLong(),
                 sProgress, sProgress.debounce(1200, TimeUnit.MILLISECONDS),
                 sToggle
