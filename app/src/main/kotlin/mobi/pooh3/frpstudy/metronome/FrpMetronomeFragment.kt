@@ -29,13 +29,13 @@ class FrpMetronomeFragment : Fragment() {
         val sProgress = seekBar.userChanges().toBehaviorSubject(seekBar.progress)
         val sToggle = toggleButton.checkedChanges().toBehaviorSubject(toggleButton.isChecked)
 
-        val sToggledProgress = sToggle.map {
+        val sToggledMetronome = sToggle.map {
             if (it) DebouncedMetronome()
             else SimpleMetronome()
         }
 
         // inputs to outputs
-        val outputs = sToggledProgress.map{ metronome -> metronome.create(Inputs(
+        val outputs = sToggledMetronome.map{ metronome -> metronome.create(Inputs(
                 seekBar.progress.toLong(),
                 sProgress,
                 sToggle
