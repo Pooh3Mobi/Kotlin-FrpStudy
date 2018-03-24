@@ -12,11 +12,12 @@ import com.jakewharton.rxbinding2.widget.checkedChanges
 import com.jakewharton.rxbinding2.widget.text
 import com.jakewharton.rxbinding2.widget.userChanges
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_frp_metronome.*
 import mobi.pooh3.frpstudy.R
+import mobi.pooh3.frpstudy.extensions.toBehaviorSubject
 import mobi.pooh3.frpstudy.share.DoOnEachLifecycleObserver
-import java.util.concurrent.TimeUnit
 
 
 class FrpMetronomeFragment : Fragment() {
@@ -25,20 +26,28 @@ class FrpMetronomeFragment : Fragment() {
             = inf!!.inflate(R.layout.fragment_frp_metronome, ctr, false)
 
     override fun onViewCreated(v: View?, bdl: Bundle?) {
-        val sProgress = seekBar.userChanges()
-                .map { if (it <= 50) 50 else it }.share()
-        val sToggle = toggleButton.checkedChanges().share()
+        val sProgress = seekBar.userChanges().toBehaviorSubject(seekBar.progress)
+                .map { if (it <= 50) 50 else it }
+        val sToggle = toggleButton.checkedChanges().toBehaviorSubject(toggleButton.isChecked)
+
+        val sToggledProgress = sToggle.map {
+            if (it) DebouncedMetronome()
+            else SimpleMetronome()
+        }
 
         // inputs to outputs
-        val outputs = SimpleMetronome().create(Inputs(
+        val outputs = sToggledProgress.map{ metronome -> metronome.create(Inputs(
                 seekBar.progress.toLong(),
-                sProgress, sProgress.debounce(1200, TimeUnit.MILLISECONDS),
+                sProgress,
                 sToggle
-        ))
+        ))}
+
+        val duration = Observable.switchOnNext(outputs.map { o -> o.duration })
+        val bpmText  = Observable.switchOnNext(outputs.map { o -> o.bpmText })
 
         disposables.addAll(
-                img_pulse.pulse(outputs.duration),
-                text_bpm.text(outputs.bpmText)
+                img_pulse.pulse(duration),
+                text_bpm.text(bpmText)
         )
 
         lifecycle.addObserver(
@@ -49,7 +58,8 @@ class FrpMetronomeFragment : Fragment() {
 
     }
 
-    private fun  ImageView.pulse(observable: Observable<out Long>) = observable.subscribe(this.pulse())
+    private fun  ImageView.pulse(observable: Observable<out Long>) =
+            observable.observeOn(AndroidSchedulers.mainThread()).subscribe(this.pulse())
     private fun ImageView.pulse(): (Long) -> Unit = { newDuration ->
         fun View.fadeOut(from: Float = 1f, to: Float = 0f, newDuration: Long) = this
                 .apply { this.alpha = from }
@@ -62,10 +72,10 @@ class FrpMetronomeFragment : Fragment() {
                 .startTone(ToneGenerator.TONE_PROP_PROMPT)
     }
 
-
     companion object {
         fun newInstance(): FrpMetronomeFragment = FrpMetronomeFragment()
     }
 }
 
-fun  TextView.text(observable: Observable<out CharSequence>) = observable.subscribe(this.text())!!
+fun  TextView.text(observable: Observable<out CharSequence>) =
+        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(this.text())!!

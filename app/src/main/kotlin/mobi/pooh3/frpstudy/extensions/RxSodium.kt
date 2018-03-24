@@ -25,3 +25,8 @@ fun <T>Observable<T>.gate(c: Observable<Boolean>) =
 
 fun <R> Observable<*>.snapshot(r: Observable<R>): Observable<R> =
         this.withLatestFrom(r, { _, r_ -> r_ })
+
+
+fun <T> Observable<T>.toBehaviorSubject(defaultValue: T): BehaviorSubject<T> = this.let {
+    BehaviorSubject.createDefault(defaultValue).apply { this@toBehaviorSubject.subscribe(this) }
+}
