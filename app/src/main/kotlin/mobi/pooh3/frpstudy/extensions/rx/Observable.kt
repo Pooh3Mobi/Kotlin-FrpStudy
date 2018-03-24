@@ -20,8 +20,6 @@ inline fun <T1,T2,T3,R> Observable<T1>.combineLatest(source2: Observable<T2>, so
         Observable.combineLatest(this, source2, source3,
                 Function3<T1, T2, T3, R> { t1, t2, t3-> combineFunction(t1, t2, t3) })!!
 
-
-
 inline fun <T1,T2,T3,T4,R> Observable<T1>.combineLatest(source2: Observable<T2>, source3: Observable<T3>, source4: Observable<T4>, crossinline combineFunction: (T1, T2, T3, T4) -> R): Observable<R> =
         Observable.combineLatest(this, source2, source3, source4,
                 Function4<T1, T2, T3, T4, R> { t1, t2, t3, t4 -> combineFunction(t1, t2, t3, t4) })!!
