@@ -27,7 +27,6 @@ class FrpMetronomeFragment : Fragment() {
 
     override fun onViewCreated(v: View?, bdl: Bundle?) {
         val sProgress = seekBar.userChanges().toBehaviorSubject(seekBar.progress)
-                .map { if (it <= 50) 50 else it }
         val sToggle = toggleButton.checkedChanges().toBehaviorSubject(toggleButton.isChecked)
 
         val sToggledProgress = sToggle.map {
