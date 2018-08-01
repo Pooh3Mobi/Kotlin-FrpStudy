@@ -22,10 +22,11 @@ import mobi.pooh3.frpstudy.share.DoOnEachLifecycleObserver
 
 class FrpMetronomeFragment : Fragment() {
     private val disposables: CompositeDisposable = CompositeDisposable()
-    override fun onCreateView(inf: LayoutInflater?, ctr: ViewGroup?, savedInstanceState: Bundle?): View?
-            = inf!!.inflate(R.layout.fragment_frp_metronome, ctr, false)
 
-    override fun onViewCreated(v: View?, bdl: Bundle?) {
+    override fun onCreateView(inf: LayoutInflater, ctr: ViewGroup?, savedInstanceState: Bundle?): View?
+            = inf.inflate(R.layout.fragment_frp_metronome, ctr, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sProgress = seekBar.userChanges().toBehaviorSubject(seekBar.progress)
         val sToggle = toggleButton.checkedChanges().toBehaviorSubject(toggleButton.isChecked)
 
@@ -54,7 +55,6 @@ class FrpMetronomeFragment : Fragment() {
                         .doOnStop { if (!disposables.isDisposed) disposables.dispose() }
                         .doOnDestroy { if (!disposables.isDisposed) disposables.dispose() }
         )
-
     }
 
     private fun  ImageView.pulse(observable: Observable<out Long>) =
